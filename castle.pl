@@ -1,15 +1,10 @@
 % Base case, empty list, do nothing
 printList([]).
+
+%other cases
 printList([H | T]) :-
     write(H), nl,
     printList(T).
-
-% Add your comments here
-
-% Add your comments here
-% solveRoomsWithinCost(Castle, Limit) :- 
-
-%   printList(NL).
 
 % Check if X is a member of the list.
 member(X, [X|_]).
@@ -20,8 +15,7 @@ member(X, [_|T]) :-
 solveRooms(Castle, RequiredRooms) :-
     dfs(Castle, enter, RequiredRooms, [], Path),
     reverse(Path, ReversedPath), % To print the path in correct order
-    printList(ReversedPath),
-    write('true .'), nl.
+    printList(ReversedPath),!.
 
 % Base Case: When reaching 'exit', check if we''ve visited all required rooms.
 dfs(_, exit, [], Visited, [exit|Visited]).
@@ -42,7 +36,7 @@ dfs(Castle, Room, Required, Visited, Path) :-
 
 %%%%%%
 % Base case: When reaching 'exit', print the path if the current cost is within the limit.
-dfs_cost(Castle, exit, CurrentCost, Limit, Visited, [exit|Visited]) :-
+dfs_cost(_, exit, CurrentCost, Limit, Visited, [exit|Visited]) :-
     CurrentCost =< Limit,
     write('Cost is '), write(CurrentCost), write(' within limit of '), write(Limit), nl.
 
@@ -58,8 +52,6 @@ dfs_cost(Castle, Room, CurrentCost, Limit, Visited, Path) :-
 solveRoomsWithinCost(Castle, Limit) :- 
     dfs_cost(Castle, enter, 0, Limit, [], Path),
     reverse(Path, ReversedPath), % To print the path in correct order
-    printList(ReversedPath),
-    write('true .'), nl.
+    printList(ReversedPath),!.
 
-% solveRoomsWithinCost(_, _) :- 
-%     write('false .'), nl.
+
